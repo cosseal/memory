@@ -2,22 +2,25 @@ const  viewport = document.getElementById("viewport");
 const finish = document.getElementById("viewportFinish");
 
 
-
 //Create cardsgame function
-function ImgCards(img, id) {
+function ImgCards(img, id, element) {
     this.imgProperty = img;
     this.id = id;
-
-    this.getImage = function(){
-        var element = document.createElement("img");
-        element.src = this.imgProperty;
-        return element;
+    this.element = element;
+    this.create = function()
+    {
+        this.element = document.createElement("img");
+        this.element.src = this.imgProperty;
+        viewport.appendChild(this.element);
+    };
+    this.get = function () {
+        return this.element;
     };
 }
 
 // create cards object
 
-var img1 = new ImgCards("images/aceofpents.png", 0);
+var img1 = new ImgCards("images/aceofpents.png", 0,);
 var img2 = new ImgCards("images/castle.png", 1);
 var img3 = new ImgCards("images/chariot.png",2);
 var img4 = new ImgCards("images/death.png",3);
@@ -33,21 +36,11 @@ var tabCards2 = [img1, img2, img3, img4, img5, img6, img7, img8];
 
 
 
-// shuffle cards
-function shuffle(elem) {
-    // recuperer indice aleatoire
-    // affecter la valeur a result => elem[indice]
-    // supprimer indice dans tableau elem
-    var result = [];
-    var len = elem.length;
-    for(let i = 0; i < len; i++){
-        var index = Math.floor (Math.random() * elem.length);
-        result.push(elem[index]);
-        elem.splice(index,1);
-    }
+ function shuffle(array) {
+     array.sort(() => Math.random() - 0.5); }
 
-    return result;
-}
+shuffle (tabCards);
+shuffle(tabCards2);
 
 var arrayC=[];
 
@@ -55,36 +48,52 @@ function imgviewing (param)
 {
     // desk charging
     for (let i = 0; i < param.length; i++) {
+    param[i].create();
+     var view = param [i].get();
 
-        let image = imgDesk.getImage();
 
-        viewport.appendChild(image);
+
     // cards image viewing
-        image.onclick = function () {
-            //console.log(param[i]);
-            image.src = param[i].imgProperty;
-
+        view.onclick = function () {
+            //element.src = param[i].imgProperty;
             arrayC.push(param[i].id);
             console.log(arrayC);
-            //image.src = this.imgProperty;
-        };
+            console.log(param[i]);
+        }
     }
-
 }
-tabCards = shuffle(tabCards);
-tabCards2 = shuffle(tabCards2);
+//imgviewing(tabCards);
+//imgviewing(tabCards2);
+
+function comparer () {
+
+
+    if (arrayC.length === 2) {
+        if (tabCards.element.id === tabCards2.element.id ){
+
+        }
+        else {
+            aff;
+        }
+
+    }
+}
+
+    comparer(tabCards,tabCards2);
+
+
+
+
+
+
+
+
 imgviewing(tabCards);
 imgviewing(tabCards2);
 
 
 
-function comparer () {
 
-
-
-
-
-}
 
 
 

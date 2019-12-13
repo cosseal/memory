@@ -1,26 +1,64 @@
 const  viewport = document.getElementById("viewport");
 const finish = document.getElementById("viewportFinish");
-
+var tbl = [];
+var tbl2 = [];
 
 //Create cardsgame function
-function ImgCards(img, id, element) {
+function ImgCards(img, id) {
+
     this.imgProperty = img;
+    this.deskbacground = "images/aceofswords.png";
     this.id = id;
-    this.element = element;
+    this.element = null;
     this.create = function()
     {
         this.element = document.createElement("img");
-        this.element.src = this.imgProperty;
+        this.element.src = this.deskbacground;
         viewport.appendChild(this.element);
+        let that = this;
+        this.element.onclick = function() {
+            this.src = that.imgProperty;
+            tbl.push(that);
+            tbl2.push(this);
+            that.comparer();
+        }
     };
-    this.get = function () {
+    this.get = function ()
+    {
         return this.element;
     };
-}
+     // this.clickCards = function ()
+     // {
+     //    this.element.src = this.imgProperty;
+     // };
+    this.comparer = function () {
+        //alert(tbl);
+        if (tbl.length === 2) {
+
+            if (tbl[0].id === tbl[1].id) {
+                alert("gagné");
+
+            } else {
+                console.log(tbl[0]);
+
+                setTimeout(function () {
+                        tbl2[0].src = tbl[0].deskbacground;
+                        tbl2[1].src = tbl[1].deskbacground;
+                    }
+                    , 10000);
+                tbl = [];
+                tbl2 = [];
+            }
+        }}
+
+    }
+
+
+
 
 // create cards object
 
-var img1 = new ImgCards("images/aceofpents.png", 0,);
+var img1 = new ImgCards("images/aceofpents.png", 0);
 var img2 = new ImgCards("images/castle.png", 1);
 var img3 = new ImgCards("images/chariot.png",2);
 var img4 = new ImgCards("images/death.png",3);
@@ -34,6 +72,8 @@ var imgDesk = new ImgCards("images/aceofswords.png",8);
 var tabCards = [img1, img2, img3, img4, img5, img6, img7, img8];
 var tabCards2 = [img1, img2, img3, img4, img5, img6, img7, img8];
 
+var tabs = [tabCards,tabCards2];
+
 
 
  function shuffle(array) {
@@ -42,80 +82,19 @@ var tabCards2 = [img1, img2, img3, img4, img5, img6, img7, img8];
 shuffle (tabCards);
 shuffle(tabCards2);
 
-var arrayC=[];
+
 
 function imgviewing (param)
-{
-    // desk charging
-    for (let i = 0; i < param.length; i++) {
-    param[i].create();
-     var view = param [i].get();
-
-
-
-    // cards image viewing
-        view.onclick = function () {
-            //element.src = param[i].imgProperty;
-            arrayC.push(param[i].id);
-            console.log(arrayC);
-            console.log(param[i]);
+    {
+        for (let i = 0; i < param.length; i++) {
+            // desk charging
+            param[i].create();
+            param [i].get();
         }
     }
-}
-//imgviewing(tabCards);
-//imgviewing(tabCards2);
-
-function comparer () {
-
-
-    if (arrayC.length === 2) {
-        if (tabCards.element.id === tabCards2.element.id ){
-
-        }
-        else {
-            aff;
-        }
-
-    }
-}
-
-    comparer(tabCards,tabCards2);
-
-
-
-
-
-
-
 
 imgviewing(tabCards);
 imgviewing(tabCards2);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// "/images/aceofpents.png",
-//     "/images/castle.png",
-//     "/images/chariot.png",
-//     "/images/death.png",
-//     "/images/eightofwands.png",
-//     "/images/fourofpents.png",
-//     "/images/fourofwands.png",
-//     "/images/palms.png",);
-
 
 
 

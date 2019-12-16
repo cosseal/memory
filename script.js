@@ -1,5 +1,6 @@
 const  viewport = document.getElementById("viewport");
 const finish = document.getElementById("viewportFinish");
+var score = 0;
 
 // create cards object
 var img1 = new ImgCards("images/aceofpents.png", 0);
@@ -35,7 +36,7 @@ function ImgCards(img, id) {
         this.element.onclick = function() {
             this.src = that.imgProperty;
             tbl.push(that);
-            tbl2.push(this);
+            tbl2.push(that);
             that.comparer();
         }
     };
@@ -45,27 +46,25 @@ function ImgCards(img, id) {
     };
 
     this.comparer = function () {
-        //alert(tbl);
+        console.log (tbl,tbl2);
         if (tbl.length === 2) {
-
+            console.log(tbl[0], tbl2[1]);
             if (tbl[0].id === tbl[1].id) {
-                alert("gagné");
-
-            } else {
-                console.log(tbl[0]);
-
-                setTimeout(function () {
-                        tbl[0].src = tbl[0].deskbackground;
-                        tbl2[1].src = tbl2[1].deskbackground;
-                    }
-                    , 10000);
+                alert("!");
+                score++;
+            }
+            else {
+                 setTimeout(function ()
+                 {
+                tbl2[1].src =tbl[1].deskbackground;
+                tbl2[0].src =tbl[0].deskbackground;
+                 });
                 tbl = [];
                 tbl2 = [];
             }
-        }}
-
+        }
     }
-
+    };
 
  function shuffle(array) {
      array.sort(() => Math.random() - 0.5); }
@@ -77,6 +76,7 @@ function imgviewing (param)
         param[i].create();
         param [i].get();
     }
+
 }
 
 shuffle (tabCards);
